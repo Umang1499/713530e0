@@ -17,3 +17,8 @@ export const updateCallById = async (id, { isArchived }) => {
   const result = await patchApiCall(`/activities/${id}`, payload);
   return result;
 };
+
+export const resetCalls = async () => {
+  const result = await patchApiCall(`/reset`);
+  return result;
+};

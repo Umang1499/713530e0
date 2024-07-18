@@ -4,9 +4,10 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { getCalls, updateCallById } from "../services/Calls";
+import { getCalls, resetCalls, updateCallById } from "../services/Calls";
 import useToastr from "../hooks/useToastr.js";
 import Main from "../layout/Main.jsx";
+import { useNavigate } from "react-router-dom";
 
 export const ActivityDataContext = createContext({
   activities: [],
@@ -19,7 +20,9 @@ export const ActivityDataContext = createContext({
 
 export const ActivityDataProvider = ({ children }) => {
   const { showErrorToastr, showSuccessToastr } = useToastr();
+  const navigate = useNavigate()
   const [activities, setActivities] = useState([]);
+  const [refreshData, setRefreshData] = useState(false);
   const [archivedActivities, setArchivedActivities] = useState([]);
 
   useEffect(() => {
@@ -34,17 +37,14 @@ export const ActivityDataProvider = ({ children }) => {
       }
     };
     getActivities();
-  }, []);
+  }, [refreshData]);
 
   const handleArchive = useCallback(
     async (id) => {
       try {
         await updateCallById(id, { isArchived: true });
-        setActivities((prev) => prev.filter((activity) => activity.id !== id));
-        setArchivedActivities((prev) => [
-          ...prev,
-          activities.find((activity) => activity.id === id),
-        ]);
+        setRefreshData(!refreshData);
+        navigate(-1);
         showSuccessToastr('Call archived successfully.')
       } catch (error) {
         console.error("Error archiving activity:", error);
@@ -59,18 +59,12 @@ export const ActivityDataProvider = ({ children }) => {
     async (id) => {
       try {
         await updateCallById(id, { isArchived: false });
-        setArchivedActivities((prev) =>
-          prev.filter((activity) => activity.id !== id)
-        );
-        setActivities((prev) => [
-          ...prev,
-          archivedActivities.find((activity) => activity.id === id),
-        ]);
+        setRefreshData(!refreshData);
+        navigate(-1);
         showSuccessToastr('Call unarchived successfully.')
       } catch (error) {
         console.error("Error unarchiving activity:", error);
         showErrorToastr(error.message || 'Something went wrong while unarchiving activity.')
-
       }
     },
     [archivedActivities]
@@ -83,8 +77,7 @@ export const ActivityDataProvider = ({ children }) => {
           updateCallById(activity.id, { isArchived: true })
         )
       );
-      setArchivedActivities([...archivedActivities, ...activities]);
-      setActivities([]);
+      setRefreshData(!refreshData);
       showSuccessToastr('All calls archived successfully.')
     } catch (error) {
       console.error("Error archiving all activities:", error);+
@@ -94,13 +87,9 @@ export const ActivityDataProvider = ({ children }) => {
 
   const unarchiveAll = useCallback(async () => {
     try {
-      await Promise.all(
-        archivedActivities.map((activity) =>
-          updateCallById(activity.id, { isArchived: false })
-        )
-      );
-      setActivities([...activities, ...archivedActivities]);
-      setArchivedActivities([]);
+      await resetCalls();
+      setRefreshData(!refreshData);
+      showSuccessToastr('All calls unarchived successfully.')
     } catch (error) {
       console.error("Error unarchiving all activities:", error);
     }
