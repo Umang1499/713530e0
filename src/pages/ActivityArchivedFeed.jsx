@@ -1,12 +1,15 @@
 import React from "react";
-import { Alert, Button, List, Box } from "@mui/material";
+import dayjs from "dayjs";
+import { Alert, Button, List, Box, Divider, Typography } from "@mui/material";
 import { UnarchiveOutlined } from "@mui/icons-material";
 import Main from "../layout/Main.jsx";
 import ActivityTile from "../components/activities/ActivityTile.jsx";
 import useActivity from "../hooks/useActivity.js";
+import { groupCallsByDate } from "../utils/DateHelpers.js";
 
 const ActivityArchivedFeedPage = () => {
   const { archivedActivities, unarchiveAll } = useActivity();
+  const groupedCalls = groupCallsByDate(archivedActivities);
 
   return (
     <Main>
@@ -32,11 +35,20 @@ const ActivityArchivedFeedPage = () => {
           <Alert severity="info">Archived Calls list is empty.</Alert>
         </Box>
       ) : (
-        <List>
-          {archivedActivities.map((activity) => (
-            <ActivityTile key={activity.id} activity={activity} />
+        <>
+          {Object.keys(groupedCalls).map((date) => (
+            <Box key={date} mb={4}>
+              <Divider>
+                <Typography variant="caption" fontWeight="bold">{dayjs(date).format("MMMM D, YYYY")}</Typography>
+              </Divider>
+              <List>
+                {groupedCalls[date].map((activity) => (
+                  <ActivityTile key={activity.id} activity={activity} />
+                ))}
+              </List>
+            </Box>
           ))}
-        </List>
+        </>
       )}
     </Main>
   );

@@ -22,6 +22,7 @@
 #app .container-view {
   max-height: 585px;
   overflow-y: auto; 
+  padding-bottom: 55px;
 }
 
 ::-webkit-scrollbar {

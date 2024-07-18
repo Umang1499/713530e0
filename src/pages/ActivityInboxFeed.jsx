@@ -1,12 +1,15 @@
 import React from "react";
-import { Alert, Button, List, Box } from "@mui/material";
+import dayjs from "dayjs";
+import { Alert, Button, List, Box, Divider, Typography } from "@mui/material";
 import { ArchiveOutlined } from "@mui/icons-material";
 import Main from "../layout/Main.jsx";
 import ActivityTile from "../components/activities/ActivityTile.jsx";
 import useActivity from "../hooks/useActivity.js";
+import { groupCallsByDate } from "../utils/DateHelpers.js";
 
 const ActivityInboxFeedPage = () => {
   const { activities, archiveAll } = useActivity();
+  const groupedCalls = groupCallsByDate(activities);
 
   return (
     <Main>
@@ -33,9 +36,20 @@ const ActivityInboxFeedPage = () => {
         </Box>
       ) : (
         <List>
-          {activities.map((activity) => (
-            <ActivityTile key={activity.id} activity={activity} />
+          <>
+          {Object.keys(groupedCalls).map((date) => (
+            <Box key={date} my={1}>
+              <Divider>
+               <Typography variant="caption" fontWeight="bold">{dayjs(date).format("MMMM D, YYYY")}</Typography>
+              </Divider>
+              <List>
+                {groupedCalls[date].map((activity) => (
+                  <ActivityTile key={activity.id} activity={activity} />
+                ))}
+              </List>
+            </Box>
           ))}
+        </>
         </List>
       )}
     </Main>
