@@ -1,6 +1,14 @@
 import React from "react";
+import dayjs from "dayjs";
 import { Link } from "react-router-dom";
-import { Card, CardContent, Avatar, Typography, CardActionArea } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Avatar,
+  Typography,
+  CardActionArea,
+  Box,
+} from "@mui/material";
 import CallTypeIcon from "../common/CallTypeIcon.jsx";
 
 const ActivityTile = ({ activity }) => {
@@ -12,21 +20,23 @@ const ActivityTile = ({ activity }) => {
         sx={{
           display: "flex",
           px: 1,
-          justifyContent: "start",
+          justifyContent: "space-between",
         }}
       >
-        <Avatar sx={{ marginRight: 1 }}>
-          <CallTypeIcon callType={activity.call_type} />
-        </Avatar>
+        <Box display="flex" justifyContent="start" alignItems="center" px={1}>
+          <Avatar sx={{ marginRight: 1 }}>
+            <CallTypeIcon callType={activity.call_type} />
+          </Avatar>
+          <CardContent>
+            <Typography variant="body1">{activity.from}</Typography>
+            <Typography variant="body2" color="text.secondary">
+              tried to call on {activity.to}
+            </Typography>
+          </CardContent>
+        </Box>
         <CardContent>
-          <Typography variant="body1">{activity.from}</Typography>
-          <Typography variant="body2" color="text.secondary">
-            tried to call on {activity.to}
-          </Typography>
-        </CardContent>
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {activity.time}
+          <Typography variant="caption" noWrap>
+            {dayjs(activity.created_at).format("h:mm A")}
           </Typography>
         </CardContent>
       </CardActionArea>
