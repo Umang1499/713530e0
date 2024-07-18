@@ -4,10 +4,11 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { getCalls, resetCalls, updateCallById } from "../services/Calls";
-import useToastr from "../hooks/useToastr.js";
-import Main from "../layout/Main.jsx";
+import Proptypes from 'prop-types';
 import { useNavigate } from "react-router-dom";
+import useToastr from "../hooks/useToastr.js";
+import { getCalls, resetCalls, updateCallById } from "../services/Calls";
+import Main from "../layout/Main.jsx";
 
 export const ActivityDataContext = createContext({
   activities: [],
@@ -112,3 +113,7 @@ export const ActivityDataProvider = ({ children }) => {
     </ActivityDataContext.Provider>
   );
 };
+
+ActivityDataProvider.propTypes = {
+  children: Proptypes.node.isRequired
+}

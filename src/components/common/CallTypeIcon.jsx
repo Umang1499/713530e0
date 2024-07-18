@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
-import { Avatar } from "@mui/material";
+import Proptypes from "prop-types";
+import Avatar from "@mui/material/Avatar";
 import CallMissedIcon from "@mui/icons-material/CallMissed";
 import CallReceivedIcon from "@mui/icons-material/CallReceived";
 import VoicemailIcon from "@mui/icons-material/Voicemail";
@@ -19,6 +20,10 @@ const CallTypeIcon = ({ callType }) => {
   }, [callType]);
 
   return <Avatar style={{ backgroundColor: color }}>{icon}</Avatar>;
+};
+
+CallTypeIcon.propTypes = {
+  callType: Proptypes.string.isRequired,
 };
 
 export default CallTypeIcon;

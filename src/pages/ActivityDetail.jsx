@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
-import { ArchiveOutlined, UnarchiveOutlined } from "@mui/icons-material";
-import { Button, Typography } from "@mui/material";
+import ArchiveOutlined from "@mui/icons-material/ArchiveOutlined";
+import UnarchiveOutlined from "@mui/icons-material/UnarchiveOutlined";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
+import useActivity from "../hooks/useActivity.js";
 import { getCallById } from "../services/Calls.js";
 import CallTypeIcon from "../components/common/CallTypeIcon.jsx";
-import useActivity from "../hooks/useActivity.js";
 
 const ActivityDetailPage = () => {
   const { id } = useParams();

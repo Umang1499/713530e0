@@ -6,11 +6,13 @@ import {
   ThemeProvider,
   StyledEngineProvider,
 } from "@mui/material";
+import AppRoutes from './config/Routes.js'
 import { ActivityDataProvider } from "./context/ActivityDataContext.jsx";
 import { ToastrProvider } from "./context/ToastrContext.jsx";
 import ActivityArchivedFeedPage from "./pages/ActivityArchivedFeed.jsx";
 import ActivityInboxFeedPage from "./pages/ActivityInboxFeed.jsx";
 import ActivityDetailPage from "./pages/ActivityDetail.jsx";
+import ComingSoonPage from "./pages/ComingSoon.jsx";
 
 const App = () => {
   const defaultTheme = createTheme({
@@ -25,16 +27,40 @@ const App = () => {
           <Router>
             <ActivityDataProvider>
               <Routes>
-                <Route exact path="/" element={<ActivityInboxFeedPage />} />
                 <Route
                   exact
-                  path="/activities/:id"
+                  path={AppRoutes.INBOX}
+                  element={<ActivityInboxFeedPage />}
+                />
+                <Route
+                  exact
+                  path={AppRoutes.ACTIVITY_DETAIL}
                   element={<ActivityDetailPage />}
                 />
                 <Route
                   exact
-                  path="/archived"
+                  path={AppRoutes.ARCHIVED}
                   element={<ActivityArchivedFeedPage />}
+                />
+                <Route
+                  exact
+                  path={AppRoutes.CONTACTS}
+                  element={<ComingSoonPage pageName="Contacts" />}
+                />
+                <Route
+                  exact
+                  path={AppRoutes.NUMPAD}
+                  element={<ComingSoonPage pageName="Numpad" />}
+                />
+                <Route
+                  exact
+                  path={AppRoutes.SETTINGS}
+                  element={<ComingSoonPage pageName="Settings" />}
+                />
+                <Route
+                  exact
+                  path={AppRoutes.APP_DETAILS}
+                  element={<ComingSoonPage pageName="App Details" />}
                 />
               </Routes>
             </ActivityDataProvider>

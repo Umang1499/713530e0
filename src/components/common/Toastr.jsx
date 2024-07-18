@@ -16,15 +16,15 @@ const Toastr = ({ isOpen, message, type, closeToastr, duration }) => (
   </Snackbar>
 );
 
-Toastr.defaultProps = {
+Toastr.default = {
   duration: 3000,
 };
 
 Toastr.propTypes = {
   isOpen: Proptypes.bool.isRequired,
-  message: Proptypes.bool.isRequired,
-  type: Proptypes.bool.isRequired,
-  closeToastr: Proptypes.bool.isRequired,
+  message: Proptypes.string.isRequired,
+  type: Proptypes.string.isRequired,
+  closeToastr: Proptypes.func.isRequired,
   duration: Proptypes.number,
 };
 export default Toastr;

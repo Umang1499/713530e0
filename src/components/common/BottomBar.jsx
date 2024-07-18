@@ -1,20 +1,45 @@
 import React, { useState } from "react";
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Badge,
-  Box,
-} from "@mui/material";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import Badge from "@mui/material/Badge";
+import Box from "@mui/material/Box";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AppsIcon from "@mui/icons-material/Apps";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import useActivity from "../../hooks/useActivity";
+import { useNavigate } from "react-router-dom";
+import AppRoutes from './../../config/Routes.js'
 
 const BottomNavBar = () => {
-  const [value, setValue] = useState(0);
   const { activities } = useActivity();
+  const navigate = useNavigate();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (_, newValue) => {
+    setValue(newValue);
+    switch (newValue) {
+      case 1:
+        navigate(AppRoutes.CONTACTS);
+        break;
+      case 2:
+        navigate(AppRoutes.NUMPAD);
+        break;
+      case 3:
+        navigate(AppRoutes.SETTINGS);
+        break;
+      case 4:
+        navigate(AppRoutes.APP_DETAILS);
+        break;
+      case 2:
+        navigate(AppRoutes.NUMPAD);
+        break;
+      default:
+        navigate(AppRoutes.INBOX);
+        break;
+    }
+  };
 
   return (
     <Box
@@ -26,13 +51,7 @@ const BottomNavBar = () => {
         boxShadow: "0px -1px 5px rgba(0,0,0,0.1)",
       }}
     >
-      <BottomNavigation
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        showLabels
-      >
+      <BottomNavigation value={value} onChange={handleChange} showLabels>
         <BottomNavigationAction
           disableRipple
           icon={
@@ -69,7 +88,8 @@ const BottomNavBar = () => {
           }
         />
         <BottomNavigationAction disableRipple icon={<SettingsIcon />} />
-        <BottomNavigationAction disableRipple
+        <BottomNavigationAction
+          disableRipple
           icon={
             <FiberManualRecordIcon
               sx={{ color: "#2AC420", fontSize: "small" }}

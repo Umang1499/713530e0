@@ -1,14 +1,13 @@
 import React from "react";
 import dayjs from "dayjs";
+import Proptypes from "prop-types";
 import { Link } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  Avatar,
-  Typography,
-  CardActionArea,
-  Box,
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import CardActionArea from "@mui/material/CardActionArea";
+import Box from "@mui/material/Box";
 import CallTypeIcon from "../common/CallTypeIcon.jsx";
 
 const ActivityTile = ({ activity }) => {
@@ -42,6 +41,20 @@ const ActivityTile = ({ activity }) => {
       </CardActionArea>
     </Card>
   );
+};
+
+ActivityTile.propTypes = {
+  activity: Proptypes.shape({
+    direction: Proptypes.string.isRequired,
+    from: Proptypes.number.isRequired,
+    to: Proptypes.number.isRequired,
+    via: Proptypes.number.isRequired,
+    duration: Proptypes.number.isRequired,
+    is_archived: Proptypes.bool.isRequired,
+    call_type: Proptypes.string.isRequired,
+    id: Proptypes.string.isRequired,
+    created_at: Proptypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ActivityTile;

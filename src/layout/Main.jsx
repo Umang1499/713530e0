@@ -1,6 +1,11 @@
 import React from "react";
+import Proptypes from "prop-types";
 import { useNavigate } from "react-router";
-import { Box, Container, Tab, Tabs } from "@mui/material";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import AppRoutes from './../config/Routes.js'
 import Header from "../components/common/Header.jsx";
 import BottomNavBar from "../components/common/BottomBar.jsx";
 
@@ -12,9 +17,9 @@ const Main = ({ children }) => {
     setValue(newValue);
 
     if (newValue === 1) {
-      navigate("/archived");
+      navigate(AppRoutes.ARCHIVED);
     } else if (newValue === 0) {
-      navigate("/");
+      navigate(AppRoutes.INBOX);
     }
   };
   return (
@@ -44,6 +49,10 @@ const Main = ({ children }) => {
       <BottomNavBar />
     </Box>
   );
+};
+
+Main.propTypes = {
+  children: Proptypes.node.isRequired,
 };
 
 export default Main;
