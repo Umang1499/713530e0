@@ -13,7 +13,7 @@ const Main = ({ children }) => {
 
     if (newValue === 1) {
       navigate("/archived");
-    } else {
+    } else if (newValue === 0) {
       navigate("/");
     }
   };

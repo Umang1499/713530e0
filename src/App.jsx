@@ -13,7 +13,6 @@ import ActivityInboxFeedPage from "./pages/ActivityInboxFeed.jsx";
 import ActivityDetailPage from "./pages/ActivityDetail.jsx";
 
 const App = () => {
-  
   const defaultTheme = createTheme({
     palette: { primary: { main: "#2AC420" } },
     typography: { fontFamily: "Space Grotesk" },
@@ -23,8 +22,8 @@ const App = () => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={defaultTheme}>
         <ToastrProvider>
-          <ActivityDataProvider>
-            <Router>
+          <Router>
+            <ActivityDataProvider>
               <Routes>
                 <Route exact path="/" element={<ActivityInboxFeedPage />} />
                 <Route
@@ -38,8 +37,8 @@ const App = () => {
                   element={<ActivityArchivedFeedPage />}
                 />
               </Routes>
-            </Router>
-          </ActivityDataProvider>
+            </ActivityDataProvider>
+          </Router>
         </ToastrProvider>
       </ThemeProvider>
     </StyledEngineProvider>

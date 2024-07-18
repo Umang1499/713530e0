@@ -12,7 +12,7 @@ const ActivityInboxFeedPage = () => {
   const groupedCalls = groupCallsByDate(activities);
 
   return (
-    <Main>
+    <>
       {activities.length > 0 && (
         <Button
           variant="outlined"
@@ -52,7 +52,7 @@ const ActivityInboxFeedPage = () => {
           ))}
         </List>
       )}
-    </Main>
+    </>
   );
 };
 

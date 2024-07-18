@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import { ArchiveOutlined, UnarchiveOutlined } from "@mui/icons-material";
 import { Button, Typography } from "@mui/material";
-import Main from "../layout/Main.jsx";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -30,13 +30,13 @@ const ActivityDetailPage = () => {
 
   if (!activity)
     return (
-      <Main>
+      <>
         <Typography>Loading...</Typography>
-      </Main>
+      </>
     );
 
   return (
-    <Main>
+    <>
       <List
         sx={{
           py: 0,
@@ -54,7 +54,7 @@ const ActivityDetailPage = () => {
           <ListItemText
             primaryTypographyProps={{ sx: { textTransform: "capitalize" } }}
             primary={`${activity.call_type} Call`}
-            secondary={activity.created_at}
+            secondary={dayjs(activity.created_at).format("MMMM D, YYYY h:mm A")}
           />
         </ListItem>
         <Divider />
@@ -93,7 +93,7 @@ const ActivityDetailPage = () => {
       >
         {activity.is_archived ? "Unarchive" : "Archive"} Call
       </Button>
-    </Main>
+    </>
   );
 };
 

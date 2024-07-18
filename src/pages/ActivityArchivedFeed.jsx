@@ -12,7 +12,7 @@ const ActivityArchivedFeedPage = () => {
   const groupedCalls = groupCallsByDate(archivedActivities);
 
   return (
-    <Main>
+    <>
       {archivedActivities.length > 0 && (
         <Button
           variant="outlined"
@@ -50,7 +50,7 @@ const ActivityArchivedFeedPage = () => {
           ))}
         </List>
       )}
-    </Main>
+    </>
   );
 };
 

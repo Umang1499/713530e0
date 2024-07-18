@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import { getCalls, updateCallById } from "../services/Calls";
 import useToastr from "../hooks/useToastr.js";
+import Main from "../layout/Main.jsx";
 
 export const ActivityDataContext = createContext({
   activities: [],
@@ -116,7 +117,9 @@ export const ActivityDataProvider = ({ children }) => {
         unarchiveAll,
       }}
     >
-      {children}
+     <Main>
+     {children}
+     </Main>
     </ActivityDataContext.Provider>
   );
 };
