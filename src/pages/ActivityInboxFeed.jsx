@@ -36,11 +36,12 @@ const ActivityInboxFeedPage = () => {
         </Box>
       ) : (
         <List>
-          <>
           {Object.keys(groupedCalls).map((date) => (
             <Box key={date} my={1}>
               <Divider>
-               <Typography variant="caption" fontWeight="bold">{dayjs(date).format("MMMM D, YYYY")}</Typography>
+                <Typography variant="caption" fontWeight="bold">
+                  {dayjs(date).format("MMMM D, YYYY")}
+                </Typography>
               </Divider>
               <List>
                 {groupedCalls[date].map((activity) => (
@@ -49,7 +50,6 @@ const ActivityInboxFeedPage = () => {
               </List>
             </Box>
           ))}
-        </>
         </List>
       )}
     </Main>

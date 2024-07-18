@@ -15,7 +15,7 @@ const ActivityArchivedFeedPage = () => {
     <Main>
       {archivedActivities.length > 0 && (
         <Button
-          variant="contained"
+          variant="outlined"
           color="primary"
           startIcon={<UnarchiveOutlined />}
           sx={{ py: 2, fontWeight: "bold" }}
@@ -35,7 +35,7 @@ const ActivityArchivedFeedPage = () => {
           <Alert severity="info">Archived Calls list is empty.</Alert>
         </Box>
       ) : (
-        <>
+        <List>
           {Object.keys(groupedCalls).map((date) => (
             <Box key={date} mb={4}>
               <Divider>
@@ -48,7 +48,7 @@ const ActivityArchivedFeedPage = () => {
               </List>
             </Box>
           ))}
-        </>
+        </List>
       )}
     </Main>
   );
